@@ -23234,7 +23234,7 @@ async function main() {
   const customPrompt = getInput("custom-prompt");
   const targets = getInput("targets").split(",").map((s) => s.split(":").map((t) => t.trim()));
   const client = createClient({ baseUrl, headers: { "X-Api-Key": apiKey } });
-  const source = (0, import_node_fs.readFileSync)(sourceFile);
+  const source = (0, import_node_fs.readFileSync)(import_node_path.default.join(process.cwd(), sourceFile));
   const sha256 = (0, import_node_crypto.createHash)("sha256").update(source).digest("hex");
   const lockFile = import_node_path.default.join(process.cwd(), "honyaku-lock.json");
   let existingAnalysisHistoryId = null;
@@ -23317,7 +23317,10 @@ async function main() {
   }
   const zipBuffer = Buffer.from(await zipResponse.arrayBuffer());
   const zip = new import_adm_zip.default(zipBuffer);
-  zip.extractAllTo(import_node_path.default.join(process.cwd(), outputDir), true);
+  for (const entry of zip.getEntries()) {
+    if (entry.entryName.endsWith(sourceFile)) continue;
+    zip.extractEntryTo(entry, outputDir, false, true);
+  }
   (0, import_node_fs.writeFileSync)(lockFile, JSON.stringify({ sha256, analysisHistoryId }, null, 2) + "\n");
   (0, import_child_process.execSync)("git config user.name github-actions[bot]", { stdio: "inherit" });
   (0, import_child_process.execSync)("git config user.email 41898282+github-actions[bot]@users.noreply.github.com", { stdio: "inherit" });
