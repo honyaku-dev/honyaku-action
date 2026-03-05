@@ -5,7 +5,7 @@ source file, translates it into multiple target languages using AI, and commits 
 
 ## Features
 
-- AI-powered translation with multiple translator models (GPT-4.1 mini, Gemini, etc.)
+- AI-powered translation with multiple translator models (GPT-4.1 mini, Claude Haiku 4.5, etc.)
 - Supports 180+ languages
 - Incremental translation using a lock file (`honyaku-lock.json`) to skip unchanged files
 - Automatically commits and pushes translated files
