@@ -163,6 +163,7 @@ async function main() {
   execSync("git config user.email 41898282+github-actions[bot]@users.noreply.github.com", { stdio: "inherit" })
   execSync(`git add ${JSON.stringify(lockFile)} ${JSON.stringify(outputDir)}`, { stdio: "inherit" })
   execSync('git commit -m "chore: update translations"', { stdio: "inherit" })
+  execSync("git pull --rebase", { stdio: "inherit" })
   execSync("git push", { stdio: "inherit" })
 }
 
