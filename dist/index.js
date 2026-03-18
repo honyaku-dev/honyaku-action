@@ -23276,7 +23276,7 @@ async function main() {
         customPrompt,
         entries: targetLocales.map(([locale, name]) => ({
           locale: locale.id,
-          source: sourceFile,
+          source: (0, import_path.basename)(sourceFile),
           name
         }))
       }
