@@ -1,7 +1,7 @@
 {
   "servers": [
     {
-      "url": "http://localhost:3000/api/v1"
+      "url": "https://localhost:10000/api/v1"
     }
   ],
   "info": {
@@ -25,9 +25,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "name"
-                ]
+                "required": ["name"]
               }
             }
           }
@@ -56,11 +54,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "uploadedFileId",
-                    "url",
-                    "fields"
-                  ]
+                  "required": ["uploadedFileId", "url", "fields"]
                 }
               }
             }
@@ -93,10 +87,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "analysisHistoryId",
-                  "uploadedFileId"
-                ]
+                "required": ["analysisHistoryId", "uploadedFileId"]
               }
             }
           }
@@ -116,10 +107,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "analysisResultId",
-                    "analysisHistoryId"
-                  ]
+                  "required": ["analysisResultId", "analysisHistoryId"]
                 }
               }
             }
@@ -165,9 +153,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "url"
-                  ]
+                  "required": ["url"]
                 }
               }
             }
@@ -215,18 +201,11 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "source",
-                        "name",
-                        "locale"
-                      ]
+                      "required": ["source", "name", "locale"]
                     }
                   }
                 },
-                "required": [
-                  "customPrompt",
-                  "entries"
-                ]
+                "required": ["customPrompt", "entries"]
               }
             }
           }
@@ -246,10 +225,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "jobId",
-                    "pollUrl"
-                  ]
+                  "required": ["jobId", "pollUrl"]
                 }
               }
             }
@@ -294,10 +270,7 @@
                       "type": "number"
                     }
                   },
-                  "required": [
-                    "status",
-                    "remaining"
-                  ]
+                  "required": ["status", "remaining"]
                 }
               }
             }
