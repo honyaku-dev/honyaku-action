@@ -22102,12 +22102,12 @@ function removeTrailingSlash(url) {
 
 // src/index.ts
 var import_path = require("path");
-var import_node_path = __toESM(require("node:path"), 1);
+var import_node_path = __toESM(require("node:path"));
 var import_node_fs = require("node:fs");
 var import_node_crypto = require("node:crypto");
 var import_promises = require("timers/promises");
 var import_child_process = require("child_process");
-var import_adm_zip = __toESM(require_adm_zip(), 1);
+var import_adm_zip = __toESM(require_adm_zip());
 
 // src/locales.json
 var locales_default = [
