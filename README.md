@@ -13,7 +13,7 @@ source file, translates it into multiple target languages using AI, and commits 
 ## Usage
 
 ```yaml
-- uses: toshimichi/honyaku-action@v0
+- uses: honyaku-dev/honyaku-action@v0
   with:
     source-file: "en_US.json"
     output-dir: "lang"
@@ -24,7 +24,7 @@ source file, translates it into multiple target languages using AI, and commits 
 You can also use `all` to target every available locale, combined with `{id}` or `{ID}` placeholders in the filename:
 
 ```yaml
-- uses: toshimichi/honyaku-action@v0
+- uses: honyaku-dev/honyaku-action@v0
   with:
     source-file: "en_US.json"
     output-dir: "lang"
@@ -63,13 +63,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: toshimichi/honyaku-action@v1
+      - uses: honyaku-dev/honyaku-action@v1
         with:
           source-file: "en_US.json"
           output-dir: "lang"
           targets: "ja:ja_JP.json, zh:zh_CN.json, ko:ko_KR.json"
           api-key: ${{ secrets.HONYAKU_API_KEY }}
-          custom-prompt: "Translate for a casual mobile game UI"
+          custom-prompt: "DO NOT translate, modify, or rewrite values inside \"description\" fields."
 ```
 
 ## How It Works
