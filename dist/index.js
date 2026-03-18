@@ -23325,6 +23325,7 @@ async function main() {
   (0, import_child_process.execSync)("git config user.email 41898282+github-actions[bot]@users.noreply.github.com", { stdio: "inherit" });
   (0, import_child_process.execSync)(`git add ${JSON.stringify(lockFile)} ${JSON.stringify(outputDir)}`, { stdio: "inherit" });
   (0, import_child_process.execSync)('git commit -m "chore: update translations"', { stdio: "inherit" });
+  (0, import_child_process.execSync)("git pull --rebase", { stdio: "inherit" });
   (0, import_child_process.execSync)("git push", { stdio: "inherit" });
 }
 main().then(() => {
