@@ -43,6 +43,7 @@ async function main() {
     .getInput("targets")
     .split(",")
     .map((s) => s.split(":").map((t) => t.trim()))
+    .flatMap(([id, name]) => (id === "all" ? locales.map((locale) => [locale.id, name]) : [[id, name]]))
 
   const client = createClient<paths>({ baseUrl, headers: { "X-Api-Key": apiKey } })
 
@@ -82,12 +83,13 @@ async function main() {
   )
 
   // Queue translation job
-  const targetLocales = targets.map(([localeId, name]) => {
+  const targetLocales = targets.map(([localeId, name]): [Locale, string] => {
     const locale = locales.find((l) => l.id === localeId)
     if (!locale) {
       throw new Error(`Invalid locale ID: ${localeId}`)
     }
-    return [locale, name] as [Locale, string]
+    const fileName = name!.replace("{id}", locale.id).replace("{ID}", locale.id.toUpperCase())
+    return [locale, fileName]
   })
 
   const { jobId } = handle(
