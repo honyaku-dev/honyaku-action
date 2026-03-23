@@ -69,7 +69,7 @@ jobs:
           output-dir: "lang"
           targets: "ja:ja_JP.json, zh:zh_CN.json, ko:ko_KR.json"
           api-key: ${{ secrets.HONYAKU_API_KEY }}
-          custom-prompt: "DO NOT translate, modify, or rewrite values inside \"description\" fields."
+          custom-prompt: "DO NOT translate, modify, or rewrite values inside \"description\" fields. Use the value of \"description\" as context when translating the value of \"text\" fields."
 ```
 
 ## How It Works
