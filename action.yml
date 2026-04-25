@@ -14,6 +14,9 @@ inputs:
   targets:
     description: 'A comma-separated list of target locales with the following format: "<locale>:<filename>". (e. g. "ja:ja_JP.json")'
     required: true
+  excludes:
+    description: 'Comma-separated list of locales to exclude when using `all` (e.g. `en, fr`)'
+    required: false
   api-key:
     description: "API key for authentication"
     required: true
