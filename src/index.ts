@@ -151,7 +151,7 @@ async function main() {
   const zipBuffer = Buffer.from(await zipResponse.arrayBuffer())
   const zip = new AdmZip(zipBuffer)
   for (const entry of zip.getEntries()) {
-    if (entry.entryName.endsWith(sourceFile)) continue
+    if (entry.entryName.endsWith(basename(sourceFile))) continue
     zip.extractEntryTo(entry, outputDir, false, true)
   }
 
