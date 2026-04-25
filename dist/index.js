@@ -23317,7 +23317,7 @@ async function main() {
   const zipBuffer = Buffer.from(await zipResponse.arrayBuffer());
   const zip = new import_adm_zip.default(zipBuffer);
   for (const entry of zip.getEntries()) {
-    if (entry.entryName.endsWith(sourceFile)) continue;
+    if (entry.entryName.endsWith((0, import_path.basename)(sourceFile))) continue;
     zip.extractEntryTo(entry, outputDir, false, true);
   }
   (0, import_node_fs.writeFileSync)(lockFile, JSON.stringify({ sha256, analysisHistoryId }, null, 2) + "\n");
