@@ -23231,7 +23231,8 @@ async function main() {
   const baseUrl = getInput("base-url");
   const apiKey = getInput("api-key");
   const customPrompt = getInput("custom-prompt");
-  const targets = getInput("targets").split(",").map((s) => s.split(":").map((t) => t.trim())).flatMap(([id, name]) => id === "all" ? locales_default.map((locale) => [locale.id, name]) : [[id, name]]);
+  const excludes = getInput("excludes").split(",").map((s) => s.trim());
+  const targets = getInput("targets").split(",").map((s) => s.split(":").map((t) => t.trim())).flatMap(([id, name]) => id === "all" ? locales_default.map((locale) => [locale.id, name]) : [[id, name]]).filter(([id]) => !excludes.includes(id));
   const client = createClient({ baseUrl, headers: { "X-Api-Key": apiKey } });
   const source = (0, import_node_fs.readFileSync)(import_node_path.default.join(process.cwd(), sourceFile));
   const sha256 = (0, import_node_crypto.createHash)("sha256").update(source).digest("hex");
@@ -23257,10 +23258,10 @@ async function main() {
       body: { uploadedFileId, analysisHistoryId: existingAnalysisHistoryId }
     })
   );
-  const targetLocales = targets.map(([localeId, name]) => {
-    const locale = locales_default.find((l) => l.id === localeId);
+  const targetLocales = targets.map(([id, name]) => {
+    const locale = locales_default.find((l) => l.id === id);
     if (!locale) {
-      throw new Error(`Invalid locale ID: ${localeId}`);
+      throw new Error(`Invalid locale ID: ${id}`);
     }
     const fileName = name.replace("{id}", locale.id).replace("{ID}", locale.id.toUpperCase());
     return [locale, fileName];
