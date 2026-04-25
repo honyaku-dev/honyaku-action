@@ -21,7 +21,8 @@ source file, translates it into multiple target languages using AI, and commits 
     api-key: ${{ secrets.HONYAKU_API_KEY }}
 ```
 
-You can also use `all` to target every available locale, combined with `{id}` or `{ID}` placeholders in the filename:
+You can also use `all` to target every available locale, combined with `{id}` or `{ID}` placeholders in the filename.
+Use `excludes` to exclude specific locales when using `all`.
 
 ```yaml
 - uses: honyaku-dev/honyaku-action@v0
@@ -29,19 +30,21 @@ You can also use `all` to target every available locale, combined with `{id}` or
     source-file: "en_US.json"
     output-dir: "lang"
     targets: "all:{id}.json"
+    excludes: "en"
     api-key: ${{ secrets.HONYAKU_API_KEY }}
 ```
 
 ## Inputs
 
-| Name            | Required | Default                      | Description                                                                                                      |
-|-----------------|----------|------------------------------|------------------------------------------------------------------------------------------------------------------|
-| `source-file`   | Yes      |                              | Path to the source translation file                                                                              |
-| `output-dir`    | Yes      |                              | Output directory for translated files                                                                            |
-| `targets`       | Yes      |                              | Comma-separated list of target locales in the format `<locale>:<filename>`. Use `all` to target every locale. Filenames support `{id}` and `{ID}` placeholders (e.g. `all:{id}.json`, `ja:ja_JP.json`) |
-| `api-key`       | Yes      |                              | API key for authentication (get one at [honyaku.dev](https://honyaku.dev))                                       |
+| Name           | Required | Default                      | Description                                                                                                      |
+|----------------|----------|------------------------------|------------------------------------------------------------------------------------------------------------------|
+| `source-file`  | Yes      |                              | Path to the source translation file                                                                              |
+| `output-dir`   | Yes      |                              | Output directory for translated files                                                                            |
+| `targets`      | Yes      |                              | Comma-separated list of target locales in the format `<locale>:<filename>`. Use `all` to target every locale. Filenames support `{id}` and `{ID}` placeholders (e.g. `all:{id}.json`, `ja:ja_JP.json`) |
+| `excludes`     | No       |                              | Comma-separated list of locales to exclude when using `all` (e.g. `en, fr`)                                      |
+| `api-key`      | Yes      |                              | API key for authentication (get one at [honyaku.dev](https://honyaku.dev))                                       |
 | `custom-prompt` | No       | `""`                         | Custom prompt for the translator                                                                                 |
-| `base-url`      | No       | `https://honyaku.dev/api/v1` | Base URL of the Honyaku API                                                                                      |
+| `base-url`     | No       | `https://honyaku.dev/api/v1` | Base URL of the Honyaku API                                                                                      |
 
 ## Example Workflow
 

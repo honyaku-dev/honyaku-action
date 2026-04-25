@@ -39,11 +39,16 @@ async function main() {
   const baseUrl = core.getInput("base-url")
   const apiKey = core.getInput("api-key")
   const customPrompt = core.getInput("custom-prompt")
+  const excludes = core.getInput("excludes")
+    .split(",")
+    .map((s) => s.trim())
+
   const targets = core
     .getInput("targets")
     .split(",")
     .map((s) => s.split(":").map((t) => t.trim()))
     .flatMap(([id, name]) => (id === "all" ? locales.map((locale) => [locale.id, name]) : [[id, name]]))
+    .filter(([id]) => !excludes.includes(id!))
 
   const client = createClient<paths>({ baseUrl, headers: { "X-Api-Key": apiKey } })
 
@@ -83,10 +88,10 @@ async function main() {
   )
 
   // Queue translation job
-  const targetLocales = targets.map(([localeId, name]): [Locale, string] => {
-    const locale = locales.find((l) => l.id === localeId)
+  const targetLocales = targets.map(([id, name]): [Locale, string] => {
+    const locale = locales.find((l) => l.id === id)
     if (!locale) {
-      throw new Error(`Invalid locale ID: ${localeId}`)
+      throw new Error(`Invalid locale ID: ${id}`)
     }
     const fileName = name!.replace("{id}", locale.id).replace("{ID}", locale.id.toUpperCase())
     return [locale, fileName]
