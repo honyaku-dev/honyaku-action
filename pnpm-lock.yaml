@@ -12,8 +12,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       '@honyaku-dev/locales':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
       adm-zip:
         specifier: ^0.5.16
         version: 0.5.16
@@ -357,8 +357,8 @@ packages:
     resolution: {integrity: sha512-bIZEUzOI1jkhviX2cp5vNyXQc6olzb2ohewQubuYlMXZ2Q/XjBO0x0XhGPvc9fjSIiUN0vw+0hq53BJ4eQSJKQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@honyaku-dev/locales@1.0.0':
-    resolution: {integrity: sha512-27oRxBiSKOOL/i/7xlowSAWnyDbG+QHTyOo/9LQ5ublgx3FRKXDLCrizAm1PxTkp6OOB6fPCbcJZ/R+hIXnJ8Q==}
+  '@honyaku-dev/locales@1.0.1':
+    resolution: {integrity: sha512-AJ6kdtpeQCntkM2wDWriDvRBFJ4oNZRuGh0LhK1p1ZolmaZ8GtMo/czDXVEk8ei7hTHi9B1eTCuiSyIBM0ryMA==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2291,7 +2291,7 @@ snapshots:
       '@eslint/core': 1.1.0
       levn: 0.4.1
 
-  '@honyaku-dev/locales@1.0.0': {}
+  '@honyaku-dev/locales@1.0.1': {}
 
   '@humanfs/core@0.19.1': {}
 
