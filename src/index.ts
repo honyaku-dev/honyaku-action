@@ -7,8 +7,8 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs"
 import { createHash } from "node:crypto"
 import { setTimeout } from "timers/promises"
 import { execSync } from "child_process"
+import locales from "@honyaku-dev/locales"
 import AdmZip from "adm-zip"
-import locales from "@/locales.json"
 
 const POLL_INTERVAL_MS = 10_000
 
