@@ -12,7 +12,7 @@ inputs:
     description: "Output directory for translated files"
     required: true
   targets:
-    description: 'A comma-separated list of target locales with the following format: "<locale>:<filename>". (e. g. "ja:ja_JP.json")'
+    description: 'A comma-separated list of target locales with the following format: "<locale>:<filename>". (e. g. "ja:ja.json")'
     required: true
   api-key:
     description: "API key for authentication"

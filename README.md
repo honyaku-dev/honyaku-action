@@ -15,9 +15,9 @@ source file, translates it into multiple target languages using AI, and commits 
 ```yaml
 - uses: honyaku-dev/honyaku-action@v0
   with:
-    source-file: "en_US.json"
+    source-file: "en.json"
     output-dir: "lang"
-    targets: "ja:ja_JP.json, zh:zh_CN.json, ko:ko_KR.json"
+    targets: "ja:ja.json, zh:zh.json, ko:ko.json"
     api-key: ${{ secrets.HONYAKU_API_KEY }}
 ```
 
@@ -26,7 +26,7 @@ You can also use `all` to target every available locale, combined with `{id}` or
 ```yaml
 - uses: honyaku-dev/honyaku-action@v0
   with:
-    source-file: "en_US.json"
+    source-file: "en.json"
     output-dir: "lang"
     targets: "all:{id}.json"
     api-key: ${{ secrets.HONYAKU_API_KEY }}
@@ -34,14 +34,14 @@ You can also use `all` to target every available locale, combined with `{id}` or
 
 ## Inputs
 
-| Name            | Required | Default                      | Description                                                                                                      |
-|-----------------|----------|------------------------------|------------------------------------------------------------------------------------------------------------------|
-| `source-file`   | Yes      |                              | Path to the source translation file                                                                              |
-| `output-dir`    | Yes      |                              | Output directory for translated files                                                                            |
-| `targets`       | Yes      |                              | Comma-separated list of target locales in the format `<locale>:<filename>`. Use `all` to target every locale. Filenames support `{id}` and `{ID}` placeholders (e.g. `all:{id}.json`, `ja:ja_JP.json`) |
-| `api-key`       | Yes      |                              | API key for authentication (get one at [honyaku.dev](https://honyaku.dev))                                       |
-| `custom-prompt` | No       | `""`                         | Custom prompt for the translator                                                                                 |
-| `base-url`      | No       | `https://honyaku.dev/api/v1` | Base URL of the Honyaku API                                                                                      |
+| Name            | Required | Default                      | Description                                                                                                                                                                                         |
+|-----------------|----------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `source-file`   | Yes      |                              | Path to the source translation file                                                                                                                                                                 |
+| `output-dir`    | Yes      |                              | Output directory for translated files                                                                                                                                                               |
+| `targets`       | Yes      |                              | Comma-separated list of target locales in the format `<locale>:<filename>`. Use `all` to target every locale. Filenames support `{id}` and `{ID}` placeholders (e.g. `all:{id}.json`, `ja:ja.json`) |
+| `api-key`       | Yes      |                              | API key for authentication (get one at [honyaku.dev](https://honyaku.dev))                                                                                                                          |
+| `custom-prompt` | No       | `""`                         | Custom prompt for the translator                                                                                                                                                                    |
+| `base-url`      | No       | `https://honyaku.dev/api/v1` | Base URL of the Honyaku API                                                                                                                                                                         |
 
 ## Example Workflow
 
@@ -66,9 +66,9 @@ jobs:
 
       - uses: honyaku-dev/honyaku-action@v1
         with:
-          source-file: "en_US.json"
-          output-dir: "lang"
-          targets: "ja:ja_JP.json, zh:zh_CN.json, ko:ko_KR.json"
+          source-file: "messages/en.json"
+          output-dir: "messages/generated"
+          targets: "ja:ja.json, zh:zh.json, ko:ko.json"
           api-key: ${{ secrets.HONYAKU_API_KEY }}
           custom-prompt: "DO NOT translate, modify, or rewrite values inside \"description\" fields. Use the value of \"description\" as context when translating the value of \"text\" fields."
 ```
