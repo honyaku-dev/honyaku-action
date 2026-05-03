@@ -22104,12 +22104,10 @@ function removeTrailingSlash(url) {
 var import_path = require("path");
 var import_node_path = __toESM(require("node:path"));
 var import_node_fs = require("node:fs");
-var import_node_crypto = require("node:crypto");
 var import_promises = require("timers/promises");
 var import_child_process = require("child_process");
-var import_adm_zip = __toESM(require_adm_zip());
 
-// src/locales.json
+// node_modules/.pnpm/@honyaku-dev+locales@1.0.1/node_modules/@honyaku-dev/locales/locales.json
 var locales_default = [
   {
     id: "ab",
@@ -23217,7 +23215,11 @@ var locales_default = [
   }
 ];
 
+// node_modules/.pnpm/@honyaku-dev+locales@1.0.1/node_modules/@honyaku-dev/locales/index.js
+var locales_default2 = locales_default;
+
 // src/index.ts
+var import_adm_zip = __toESM(require_adm_zip());
 var POLL_INTERVAL_MS = 1e4;
 function handle(response) {
   if (response.error) {
@@ -23231,16 +23233,14 @@ async function main() {
   const baseUrl = getInput("base-url");
   const apiKey = getInput("api-key");
   const customPrompt = getInput("custom-prompt");
-  const targets = getInput("targets").split(",").map((s) => s.split(":").map((t) => t.trim())).flatMap(([id, name]) => id === "all" ? locales_default.map((locale) => [locale.id, name]) : [[id, name]]);
+  const targets = getInput("targets").split(",").map((s) => s.split(":").map((t) => t.trim())).flatMap(([id, name]) => id === "all" ? locales_default2.map((locale) => [locale.id, name]) : [[id, name]]);
   const client = createClient({ baseUrl, headers: { "X-Api-Key": apiKey } });
   const source = (0, import_node_fs.readFileSync)(import_node_path.default.join(process.cwd(), sourceFile));
-  const sha256 = (0, import_node_crypto.createHash)("sha256").update(source).digest("hex");
   const lockFile = import_node_path.default.join(process.cwd(), "honyaku-lock.json");
   let existingAnalysisHistoryId = null;
   if ((0, import_node_fs.existsSync)(lockFile)) {
     const data = JSON.parse((0, import_node_fs.readFileSync)(lockFile, "utf-8"));
     existingAnalysisHistoryId = data.analysisHistoryId;
-    if (data.sha256 === sha256) return;
   }
   const { uploadedFileId, fields, url } = handle(await client.POST("/files", { body: { name: (0, import_path.basename)(sourceFile) } }));
   const form = new FormData();
@@ -23258,7 +23258,7 @@ async function main() {
     })
   );
   const targetLocales = targets.map(([localeId, name]) => {
-    const locale = locales_default.find((l) => l.id === localeId);
+    const locale = locales_default2.find((l) => l.id === localeId);
     if (!locale) {
       throw new Error(`Invalid locale ID: ${localeId}`);
     }
@@ -23320,7 +23320,7 @@ async function main() {
     if (entry.entryName.endsWith((0, import_path.basename)(sourceFile))) continue;
     zip.extractEntryTo(entry, outputDir, false, true);
   }
-  (0, import_node_fs.writeFileSync)(lockFile, JSON.stringify({ sha256, analysisHistoryId }, null, 2) + "\n");
+  (0, import_node_fs.writeFileSync)(lockFile, JSON.stringify({ analysisHistoryId }, null, 2) + "\n");
   (0, import_child_process.execSync)("git config user.name github-actions[bot]", { stdio: "inherit" });
   (0, import_child_process.execSync)("git config user.email 41898282+github-actions[bot]@users.noreply.github.com", { stdio: "inherit" });
   (0, import_child_process.execSync)(`git add ${JSON.stringify(lockFile)} ${JSON.stringify(outputDir)}`, { stdio: "inherit" });
