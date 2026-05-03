@@ -4,7 +4,6 @@ import type { paths } from "@/generated/openapi/v1"
 import { basename } from "path"
 import path from "node:path"
 import { existsSync, readFileSync, writeFileSync } from "node:fs"
-import { createHash } from "node:crypto"
 import { setTimeout } from "timers/promises"
 import { execSync } from "child_process"
 import locales from "@honyaku-dev/locales"
@@ -20,7 +19,6 @@ interface Locale {
 }
 
 interface LockFile {
-  sha256: string
   analysisHistoryId: string
 }
 
@@ -49,7 +47,6 @@ async function main() {
 
   // Check if translation is required
   const source = readFileSync(path.join(process.cwd(), sourceFile))
-  const sha256 = createHash("sha256").update(source).digest("hex")
 
   const lockFile = path.join(process.cwd(), "honyaku-lock.json")
 
@@ -57,8 +54,6 @@ async function main() {
   if (existsSync(lockFile)) {
     const data = JSON.parse(readFileSync(lockFile, "utf-8")) as LockFile
     existingAnalysisHistoryId = data.analysisHistoryId
-
-    if (data.sha256 === sha256) return
   }
 
   // Request file upload URL and fields
@@ -156,7 +151,7 @@ async function main() {
   }
 
   // Update lock file
-  writeFileSync(lockFile, JSON.stringify({ sha256, analysisHistoryId }, null, 2) + "\n")
+  writeFileSync(lockFile, JSON.stringify({ analysisHistoryId }, null, 2) + "\n")
 
   // Commit changes
   execSync("git config user.name github-actions[bot]", { stdio: "inherit" })

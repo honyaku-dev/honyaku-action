@@ -6,7 +6,7 @@ source file, translates it into multiple target languages using AI, and commits 
 ## Features
 
 - Supports 180+ languages
-- Incremental translation using a lock file (`honyaku-lock.json`) to skip unchanged files
+- Incremental translation using a lock file (`honyaku-lock.json`) to track analysis history
 - Automatically commits and pushes translated files
 - Custom prompts for fine-tuning translation output
 
@@ -52,7 +52,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "en_US.json"
+      - "messages/en.json"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -74,19 +75,20 @@ jobs:
 
 ## How It Works
 
-1. Computes the SHA-256 hash of the source file and compares it against `honyaku-lock.json`. If unchanged, the action
-   exits early.
-2. Uploads the source file to the Honyaku API.
-3. Decompiles the file to extract translatable strings.
-4. Queues translation jobs for each target locale.
-5. Polls for job completion.
-6. Downloads the translated files as a ZIP and extracts them to the output directory.
-7. Updates `honyaku-lock.json` and commits/pushes the changes.
+1. Uploads the source file to the Honyaku API.
+2. Decompiles the file to extract translatable strings (using the previous analysis history from `honyaku-lock.json` if available for incremental processing).
+3. Queues translation jobs for each target locale.
+4. Polls for job completion.
+5. Downloads the translated files as a ZIP and extracts them to the output directory.
+6. Updates `honyaku-lock.json` and commits/pushes the changes.
 
 ## Lock File
 
-The action creates a `honyaku-lock.json` file in your repository root to track the state of translations. This file
-should be committed to your repository. It prevents redundant translations when the source file hasn't changed.
+The action creates a `honyaku-lock.json` file in your repository root to track the analysis history. This file should
+be committed to your repository. It enables incremental processing by linking new analyses to previous ones.
+
+To avoid unnecessary runs, use the `paths` filter in your workflow trigger to only run the action when the source file
+changes (see the example workflow above).
 
 ## License
 
